@@ -1,0 +1,16 @@
+To run the bot, you'll need to install Python and required packages, and configure settings.py.
+The steps for this are:
+
+0) Check if python is already installed. To do this, open windows command prompt and run command "python". If python is installed, the you'll notice the python version and help information in the terminal, and if it is not you'll get an "Unknown command" error. Sometimes python can also be called by "py" and "python3" command, so try these too.
+If it is installed, skip to step 2
+
+1) Follow this guide to install python: https://phoenixnap.com/kb/how-to-install-python-3-windows
+1.1) Make sure you check "Add Python to PATH" when installing
+
+2) Open cmd in the bot folder. To do this, navigate in explorer to where bot.py file is located, shift right-click on free space and select "Open PowerShell window here"
+
+3) Run command "pip install -r requirements.txt"
+
+4) Next you need to configure settings.py. You can open it using any text editor. The instructions for each line of settings are located in readme.txt file.
+
+Now you can run the bot with "python bot.py" command (or py/python3 for other installations) 
