@@ -20,7 +20,7 @@ WEBHOOK_URL_PATH = '/webhook/' + bs.TOKEN
 WEBHOOK_URL = urljoin(WEBHOOK_HOST, WEBHOOK_URL_PATH)
 
 bot = Bot(bs.TOKEN, parse_mode="HTML")
-dp = Dispatcher()
+dp = Dispatcher(bot)
 
 logger = logging.getLogger('bot')
 
