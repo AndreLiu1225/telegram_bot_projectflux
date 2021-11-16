@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 import os
 
 from aiogram import Bot, Dispatcher, types
-from aiogram.utils import contextvars
+import contextvars
 from aiogram.dispatcher.webhook import get_new_configured_app
 from magic_filter import F
 
