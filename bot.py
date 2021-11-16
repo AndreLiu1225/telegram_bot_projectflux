@@ -254,14 +254,8 @@ def main():
 
 	# Configure bot
 	logger.info('Starting the bot')
-# 	dp.run_polling(bot)
-	start_webhook(
-		dispatcher=dp,
-		webhook_path=f"/webhook/2120771713:AAHBiz3ygcXlB_MkBdg6Bc0YQt_YBQka2aA",
-		skip_updates=True,
-		host="0.0.0.0",
-		port=int(os.getenv("PORT"))
-	)
+	dp.run_polling(bot)
+	executor.start_polling(dp)
 
 
 if __name__ == "__main__":
