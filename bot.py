@@ -3,6 +3,7 @@ import sys
 from datetime import datetime, timedelta
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.utils.executor import start_webhook
 from magic_filter import F
 
 from sqlalchemy import select, update, delete
