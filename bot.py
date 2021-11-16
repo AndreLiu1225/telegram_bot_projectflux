@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 import os
 
 from aiogram import Bot, Dispatcher, types
-from aiogram.utils import context
+from aiogram.utils import contextvars
 from aiogram.dispatcher.webhook import get_new_configured_app
 from magic_filter import F
 
@@ -267,7 +267,7 @@ def main():
 # 	executor.start_polling(dp)
 	app = get_new_configured_app(dispatcher=dp, path=WEBHOOK_URL_PATH)
 	app.on_startup.append(on_startup)
-	dp.loop.set_task_factory(context.task_factory)
+	dp.loop.set_task_factory(contextvars.task_factory)
 	web.run_app(app, host='0.0.0.0', port=os.getenv('PORT'))
 
 if __name__ == "__main__":
