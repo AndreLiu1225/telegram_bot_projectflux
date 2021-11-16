@@ -1,9 +1,12 @@
 import logging
 import sys
 from datetime import datetime, timedelta
+from urllib.parse import urljoin
 import os
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.utils import context
+from aiogram.dispatcher.webhook import get_new_configured_app
 from magic_filter import F
 
 from sqlalchemy import select, update, delete
@@ -11,6 +14,10 @@ from sqlalchemy.orm import Session
 from models import Message, ExceptUser, engine
 
 import settings as bs
+
+WEBHOOK_HOST = f'https://project-flux-telegram.herokuapp.com/'  # Enter here your link from Heroku project settings
+WEBHOOK_URL_PATH = '/webhook/' + bs.TOKEN
+WEBHOOK_URL = urljoin(WEBHOOK_HOST, WEBHOOK_URL_PATH)
 
 bot = Bot(bs.TOKEN, parse_mode="HTML")
 dp = Dispatcher()
@@ -236,7 +243,10 @@ async def animation_handler(message: types.Message):
 async def fallback_handler(message: types.Message):
 	await message.answer('Sorry, I only work in group chats! Add me to a group and give me administrator permissions to use my features')
 
-
+async def on_startup(app):
+    """Simple hook for aiohttp application which manages webhook"""
+    await bot.delete_webhook()
+    await bot.set_webhook(WEBHOOK_URL)
 
 def main():
 	# Configure logger
@@ -253,9 +263,12 @@ def main():
 
 	# Configure bot
 	logger.info('Starting the bot')
-	dp.run_polling(bot)
-	executor.start_polling(dp)
-
+# 	dp.run_polling(bot)
+# 	executor.start_polling(dp)
+	app = get_new_configured_app(dispatcher=dp, path=WEBHOOK_URL_PATH)
+	app.on_startup.append(on_startup)
+    	dp.loop.set_task_factory(context.task_factory)
+    	web.run_app(app, host='0.0.0.0', port=os.getenv('PORT'))
 
 if __name__ == "__main__":
 	main()
