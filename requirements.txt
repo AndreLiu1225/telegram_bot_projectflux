@@ -1,6 +1,5 @@
 aiofiles==0.7.0
 aiogram== 3.0.0.a17
-aiogram-utils
 aiohttp==3.7.4.post0
 async-lru==1.0.2
 async-timeout==3.0.1
