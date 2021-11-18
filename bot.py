@@ -4,9 +4,8 @@ from datetime import datetime, timedelta
 from urllib.parse import urljoin
 import os
 
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, types, executor
 import contextvars
-from aiogram.utils.executor import start_webhook
 from magic_filter import F
 
 from sqlalchemy import select, update, delete
@@ -278,12 +277,11 @@ def main():
 	# Configure bot
 	logger.info('Starting the bot')
 # 	dp.run_polling(bot)
-# 	executor.start_polling(dp)
 # 	app = get_new_configured_app(dispatcher=dp, path=WEBHOOK_URL_PATH)
 # 	app.on_startup.append(on_startup)
 # 	dp.loop.set_task_factory(contextvars.task_factory)
 # 	web.run_app(app, host='0.0.0.0', port=os.getenv('PORT'))
-	start_webhook(
+	executor.start_webhook(
         dispatcher=dp,
         webhook_path=WEBHOOK_URL_PATH,
         on_startup=on_startup,
@@ -292,6 +290,7 @@ def main():
         host=WEBAPP_HOST,
         port=WEBAPP_PORT,
     )
+# 	executor.start_polling(dp)
 
 if __name__ == "__main__":
 	main()
