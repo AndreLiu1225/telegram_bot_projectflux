@@ -6,6 +6,7 @@ import os
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils.executor import start_webhook
+from aiogram.types import ChatType
 import contextvars
 from magic_filter import F
 
