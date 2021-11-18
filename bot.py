@@ -114,7 +114,7 @@ async def process_duplicate(message, duplicate):
 
 
 
-@dp.message(commands=['except'])
+@dp.message_handler(commands=['except'])
 async def except_handler(message: types.Message):
 	if message.from_user.id not in bs.ADMIN_IDS:
 		return
