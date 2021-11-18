@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from urllib.parse import urljoin
 import os
 
-from aiogram import Bot, Dispatcher, types, executor
+from aiogram import Bot, Dispatcher, types
 import contextvars
 from magic_filter import F
 
