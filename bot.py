@@ -6,7 +6,7 @@ import os
 
 from aiogram import Bot, Dispatcher, types
 import contextvars
-from aiogram.dispatcher.webhook import get_new_configured_app
+from aiogram.utils.executor import start_webhook
 from magic_filter import F
 
 from sqlalchemy import select, update, delete
@@ -248,6 +248,20 @@ async def on_startup(app):
     await bot.delete_webhook()
     await bot.set_webhook(WEBHOOK_URL)
 
+async def on_shutdown(dp):
+    logging.warning('Shutting down..')
+
+    # insert code here to run it before shutdown
+
+    # Remove webhook (not acceptable in some cases)
+    await bot.delete_webhook()
+
+    # Close DB connection (if used)
+    await dp.storage.close()
+    await dp.storage.wait_closed()
+
+    logging.warning('Bye!')
+
 def main():
 	# Configure logger
 	if bs.LOG_FILE:
@@ -265,10 +279,19 @@ def main():
 	logger.info('Starting the bot')
 # 	dp.run_polling(bot)
 # 	executor.start_polling(dp)
-	app = get_new_configured_app(dispatcher=dp, path=WEBHOOK_URL_PATH)
-	app.on_startup.append(on_startup)
-	dp.loop.set_task_factory(contextvars.task_factory)
-	web.run_app(app, host='0.0.0.0', port=os.getenv('PORT'))
+# 	app = get_new_configured_app(dispatcher=dp, path=WEBHOOK_URL_PATH)
+# 	app.on_startup.append(on_startup)
+# 	dp.loop.set_task_factory(contextvars.task_factory)
+# 	web.run_app(app, host='0.0.0.0', port=os.getenv('PORT'))
+	start_webhook(
+        dispatcher=dp,
+        webhook_path=WEBHOOK_URL_PATH,
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        skip_updates=True,
+        host=WEBAPP_HOST,
+        port=WEBAPP_PORT,
+    )
 
 if __name__ == "__main__":
 	main()
