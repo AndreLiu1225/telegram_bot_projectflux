@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 import os
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.utils.executor import start_webhook
 import contextvars
 from magic_filter import F
 
@@ -281,7 +282,7 @@ def main():
 # 	app.on_startup.append(on_startup)
 # 	dp.loop.set_task_factory(contextvars.task_factory)
 # 	web.run_app(app, host='0.0.0.0', port=os.getenv('PORT'))
-	executor.start_webhook(
+	start_webhook(
         dispatcher=dp,
         webhook_path=WEBHOOK_URL_PATH,
         on_startup=on_startup,
