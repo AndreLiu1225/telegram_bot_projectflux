@@ -135,7 +135,7 @@ async def except_handler(message: types.Message):
 
 
 
-@dp.message(commands=['delete'])
+@dp.message_handler(commands=['delete'])
 async def delete_handler(message: types.Message):
 	if message.from_user.id not in bs.ADMIN_IDS:
 		return
@@ -163,7 +163,7 @@ async def delete_handler(message: types.Message):
 
 
 
-@dp.message(F.chat.type.in_(['group', 'supergroup']), content_types=['text'])
+@dp.message_handler(F.chat.type.in_(['group', 'supergroup']), content_types=['text'])
 async def text_handler(message: types.Message):
 	entities = message.entities or []
 	has_command = any(x.type == 'bot_command' for x in entities)
@@ -181,7 +181,7 @@ async def text_handler(message: types.Message):
 
 
 
-@dp.message(F.chat.type.in_(['group', 'supergroup']), content_types=['photo'])
+@dp.message_handler(F.chat.type.in_(['group', 'supergroup']), content_types=['photo'])
 async def photo_handler(message: types.Message):
 	photos = message.photo
 	file_id = photos[0].file_unique_id
@@ -201,7 +201,7 @@ async def photo_handler(message: types.Message):
 
 
 
-@dp.message(F.chat.type.in_(['group', 'supergroup']), content_types=['video'])
+@dp.message_handler(F.chat.type.in_(['group', 'supergroup']), content_types=['video'])
 async def video_handler(message: types.Message):
 	file_id = message.video.file_size
 	caption = message.caption
@@ -220,7 +220,7 @@ async def video_handler(message: types.Message):
 
 
 
-@dp.message(F.chat.type.in_(['group', 'supergroup']), content_types=['animation'])
+@dp.message_handler(F.chat.type.in_(['group', 'supergroup']), content_types=['animation'])
 async def animation_handler(message: types.Message):
 	file_id = message.animation.file_size
 	caption = message.caption
@@ -239,7 +239,7 @@ async def animation_handler(message: types.Message):
 
 
 
-@dp.message(F.chat.type.not_in_(['group', 'supergroup']))
+@dp.message_handler(F.chat.type.not_in_(['group', 'supergroup']))
 async def fallback_handler(message: types.Message):
 	await message.answer('Sorry, I only work in group chats! Add me to a group and give me administrator permissions to use my features')
 
