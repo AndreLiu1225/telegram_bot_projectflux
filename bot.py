@@ -304,6 +304,6 @@ async def main():
         port=os.getenv('PORT'),
     )
 
-# if __name__ == "__main__":
-# 	main()
-asyncio.run(main())
+if __name__ == "__main__":
+	main()
+# asyncio.run(main())
