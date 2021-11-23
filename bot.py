@@ -284,7 +284,7 @@ async def main():
 	
 	try:
 		me = await bot.get_me()
-        	print(f"🤖 Hello, I'm {me.first_name}.\nHave a nice Day!")
+		print(f"🤖 Hello, I'm {me.first_name}.\nHave a nice Day!")
 		dp.register_message_handler(except_handler,delete_handler,text_handler,photo_handler,video_handler,animation_handler,fallback_handler)
 		await dp.start_polling()
 	finally:
