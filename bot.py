@@ -251,10 +251,9 @@ async def animation_handler(message: types.Message):
 async def fallback_handler(message: types.Message):
 	await message.answer('Sorry, I only work in group chats! Add me to a group and give me administrator permissions to use my features')
 
-async def on_startup(app):
-    """Simple hook for aiohttp application which manages webhook"""
-    await bot.delete_webhook()
-    await bot.set_webhook(WEBHOOK_URL)
+ logging.warning(
+        'Starting connection. ')
+    await bot.set_webhook(WEBHOOK_URL,drop_pending_updates=True)
 
 async def on_shutdown(dp):
     logging.warning('Shutting down..')
