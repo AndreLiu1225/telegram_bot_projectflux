@@ -286,23 +286,23 @@ async def main():
 	# Configure bot
 	logger.info('Starting the bot')
 	
-	try:
-		me = await bot.get_me()
-		print(f"🤖 Hello, I'm {me.first_name}.\nHave a nice Day!")
-		dp.register_message_handler(except_handler,commands={'except'})
-		dp.register_message_handler(delete_handler,commands={'delete'})
-		dp.register_message_handler(start_handler,commands={'start'})
-		await dp.start_polling()
-	finally:
-		await bot.close()
-# 	start_webhook(
-#         dispatcher=dp,
-#         webhook_path=WEBHOOK_URL_PATH,
-#         on_startup=on_startup,
-#         on_shutdown=on_shutdown,
-#         skip_updates=True,
-#         port=os.getenv('PORT'),
-#     )
+# 	try:
+# 		me = await bot.get_me()
+# 		print(f"🤖 Hello, I'm {me.first_name}.\nHave a nice Day!")
+# 		dp.register_message_handler(except_handler,commands={'except'})
+# 		dp.register_message_handler(delete_handler,commands={'delete'})
+# 		dp.register_message_handler(start_handler,commands={'start'})
+# 		await dp.start_polling()
+# 	finally:
+# 		await bot.close()
+	start_webhook(
+        dispatcher=dp,
+        webhook_path=WEBHOOK_URL_PATH,
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        skip_updates=True,
+        port=os.getenv('PORT'),
+    )
 
 # if __name__ == "__main__":
 # 	main()
