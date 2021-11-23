@@ -116,7 +116,11 @@ async def process_duplicate(message, duplicate):
 		await message.answer(text)
 	await message.delete()
 
-
+async def start_handler(event: types.Message):
+	await event.answer(
+	f"Hello, {event.from_user.get_mention(as_html=True)} 👋!",
+		parse_mode=types.ParseMode.HTML,
+	)
 
 @dp.message_handler(commands=['except'])
 async def except_handler(message: types.Message):
@@ -287,6 +291,7 @@ async def main():
 		print(f"🤖 Hello, I'm {me.first_name}.\nHave a nice Day!")
 		dp.register_message_handler(except_handler,commands={'except'})
 		dp.register_message_handler(delete_handler,commands={'delete'})
+		dp.register_message_handler(start_handler,commands={'start'})
 		await dp.start_polling()
 	finally:
 		await bot.close()
