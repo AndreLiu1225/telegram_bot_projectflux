@@ -302,7 +302,7 @@ def main():
         on_startup=on_startup,
         on_shutdown=on_shutdown,
         skip_updates=True,
-        port=443,
+        port=os.getenv('PORT', default=8000),
 	host='0.0.0.0'	
     )
 
