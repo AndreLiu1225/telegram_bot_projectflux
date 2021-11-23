@@ -280,20 +280,20 @@ def main():
 
 	# Configure bot
 	logger.info('Starting the bot')
-# 	dp.run_polling(bot)
-# 	app = get_new_configured_app(dispatcher=dp, path=WEBHOOK_URL_PATH)
-# 	app.on_startup.append(on_startup)
-# 	dp.loop.set_task_factory(contextvars.task_factory)
-# 	web.run_app(app, host='0.0.0.0', port=os.getenv('PORT'))
-	start_webhook(
-        dispatcher=dp,
-        webhook_path=WEBHOOK_URL_PATH,
-        on_startup=on_startup,
-        on_shutdown=on_shutdown,
-        skip_updates=True,
-        port=os.getenv('PORT'),
-    )
-# 	executor.start_polling(dp)
+	
+	try:
+		dp.register_message_handler(except_handler,delete_handler,text_handler,photo_handler,video_handler,animation_handler,fallback_handler)
+		await dp.start_polling()
+	finally:
+		await bot.close()
+# 	start_webhook(
+#         dispatcher=dp,
+#         webhook_path=WEBHOOK_URL_PATH,
+#         on_startup=on_startup,
+#         on_shutdown=on_shutdown,
+#         skip_updates=True,
+#         port=os.getenv('PORT'),
+#     )
 
 if __name__ == "__main__":
 	main()
