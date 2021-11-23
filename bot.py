@@ -270,7 +270,7 @@ async def on_shutdown(dp):
 
     logging.warning('Bye!')
 
-async def main():
+def main():
 	# Configure logger
 	if bs.LOG_FILE:
 		handler = logging.FileHandler(bs.LOG_FILE, mode='a')
