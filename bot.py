@@ -3,6 +3,7 @@ import sys
 from datetime import datetime, timedelta
 from urllib.parse import urljoin
 import os
+import asyncio
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils.executor import start_webhook
@@ -295,5 +296,6 @@ async def main():
 #         port=os.getenv('PORT'),
 #     )
 
-if __name__ == "__main__":
-	main()
+# if __name__ == "__main__":
+# 	main()
+asyncio.run(main())
