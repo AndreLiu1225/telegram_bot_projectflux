@@ -20,7 +20,7 @@ import settings as bs
 TOKEN = "2120771713:AAHBiz3ygcXlB_MkBdg6Bc0YQt_YBQka2aA"
 
 WEBHOOK_HOST = f'https://project-flux-telegram.herokuapp.com'  # Enter here your link from Heroku project settings
-WEBHOOK_URL_PATH = f'/{TOKEN}'
+WEBHOOK_URL_PATH = f'/webhook/{TOKEN}'
 WEBHOOK_URL = urljoin(WEBHOOK_HOST, WEBHOOK_URL_PATH)
 
 bot = Bot(bs.TOKEN, parse_mode="HTML")
