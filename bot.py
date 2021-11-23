@@ -116,6 +116,7 @@ async def process_duplicate(message, duplicate):
 		await message.answer(text)
 	await message.delete()
 
+@dp.message_handler(commands=['start'])
 async def start_handler(event: types.Message):
 	await event.answer(
 	f"Hello, {event.from_user.get_mention(as_html=True)} 👋!",
