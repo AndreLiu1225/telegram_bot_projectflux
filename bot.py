@@ -302,6 +302,7 @@ def main():
         on_shutdown=on_shutdown,
         skip_updates=True,
         port=os.getenv('PORT'),
+	host='0.0.0.0'	
     )
 
 if __name__ == "__main__":
