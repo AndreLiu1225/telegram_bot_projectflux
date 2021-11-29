@@ -246,7 +246,22 @@ async def animation_handler(message: types.Message):
 	if animation_duplicate:
 		await process_duplicate(message, animation_duplicate)
 
+@dp.message_handler(chat_type=[ChatType.SUPERGROUP, ChatType.GROUP], content_types=['sticker'])
+async def animation_handler(message: types.Message):
+	file_id = message.animation.file_size
+	caption = message.caption
 
+	with Session(engine, expire_on_commit=False) as session:
+		sticker_duplicate = await check_duplicates(message, text=caption, msg_type='sticker', session=session, media=file_id)
+
+		if caption:
+			# Additionally, save caption as text message
+			await check_duplicates(message, text=caption, msg_type='text', session=session)
+
+		session.commit()
+
+	if animation_duplicate:
+		await process_duplicate(message, sticker_duplicate)
 
 @dp.message_handler(chat_type=ChatType.PRIVATE)
 async def fallback_handler(message: types.Message):
