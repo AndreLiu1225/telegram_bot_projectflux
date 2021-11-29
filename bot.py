@@ -252,7 +252,7 @@ async def audio_handler(message: types.Message):
 	caption = message.caption
 
 	with Session(engine, expire_on_commit=False) as session:
-		audio_duplicate = await check_duplicates(message, text=caption, msg_type='voice', session=session, media=file_id)
+		audio_duplicate = await check_duplicates(message, text=caption, msg_type='audio', session=session, media=file_id)
 
 		if caption:
 			# Additionally, save caption as text message
@@ -260,8 +260,25 @@ async def audio_handler(message: types.Message):
 
 		session.commit()
 
-	if voice_duplicate is not None:
+	if audio_duplicate is not None:
 		await process_duplicate(message, audio_duplicate)
+		
+@dp.message_handler(chat_type=[ChatType.SUPERGROUP, ChatType.GROUP], content_types=['document'])
+async def document_handler(message: types.Message):
+	file_id = message.document.file_size
+	caption = message.caption
+
+	with Session(engine, expire_on_commit=False) as session:
+		document_duplicate = await check_duplicates(message, text=caption, msg_type='document', session=session, media=file_id)
+
+		if caption:
+			# Additionally, save caption as text message
+			await check_duplicates(message, text=caption, msg_type='text', session=session)
+
+		session.commit()
+
+	if document_duplicate is not None:
+		await process_duplicate(message, document_duplicate)
 		
 @dp.message_handler(chat_type=[ChatType.SUPERGROUP, ChatType.GROUP], content_types=['animation'])
 async def animation_handler(message: types.Message):
