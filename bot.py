@@ -247,8 +247,8 @@ async def animation_handler(message: types.Message):
 		await process_duplicate(message, animation_duplicate)
 
 @dp.message_handler(chat_type=[ChatType.SUPERGROUP, ChatType.GROUP], content_types=['sticker'])
-async def animation_handler(message: types.Message):
-	file_id = message.animation.file_size
+async def sticker_handler(message: types.Message):
+	file_id = message.sticker.file_size
 	caption = message.caption
 
 	with Session(engine, expire_on_commit=False) as session:
