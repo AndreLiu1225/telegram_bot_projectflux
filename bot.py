@@ -262,7 +262,7 @@ async def sticker_handler(message: types.Message):
 
 		session.commit()
 
-	if animation_duplicate:
+	if sticker_duplicate:
 		await process_duplicate(message, sticker_duplicate)
 
 @dp.message_handler(chat_type=ChatType.PRIVATE)
