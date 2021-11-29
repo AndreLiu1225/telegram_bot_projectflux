@@ -65,7 +65,9 @@ async def check_duplicates(message, text, msg_type, session, media=None):
 	chat_admins = [x.user.id for x in await bot.get_chat_administrators(chat_id=message.chat.id)]
 	sender_is_admin = message.from_user.id in chat_admins
 
-	if is_exception or sender_is_admin:
+# 	if is_exception or sender_is_admin:
+# 		return
+	if is_exception:
 		return
 
 	# Query
